@@ -154,7 +154,7 @@ export default function Home() {
         <div className='h-full '>
           <h1 className='font-bold font-nato text-[2rem]'>Welcome to Crypto Devs!</h1>
           <div className='magin-[2rem 0] font-[1.2rem] '>
-            It's an NFT collection for developers in Crypto.
+            It&apos;s an NFT collection for developers in Crypto.
           </div>
           <div className='magin-[2rem 0] font-[1.2rem] mb-10'>
             <span className='text-blue-600 text-2xl'>{numOfWhitelisted}</span> have already joined the Whitelist
