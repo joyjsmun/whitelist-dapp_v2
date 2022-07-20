@@ -149,9 +149,11 @@ needSigner - True if you need the signer, default false otherwise
         )
       }
     }else{
-      <button onClick={connectWallet}>
+      return (
+        <button onClick={connectWallet}>
         Connect your wallet
       </button>
+      )
     }
   }
 
@@ -205,6 +207,9 @@ needSigner - True if you need the signer, default false otherwise
         </div>  
           <div className="w-[30vw] h-[30vw] bg-center bg-cover  bg-my_bg_image"></div>
       </div>
+      <footer className='text-center font-[1.2rem]'>
+        @2022 - Whitelist dApp 
+      </footer>
     </div>
   )
 }
