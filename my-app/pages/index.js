@@ -8,22 +8,44 @@ import { abi, WHITELIST_CONTRACT_ADDRESS } from '../constants';
 
 
 export default function Home() {
+  //check the user's wallet is connected or not
   const [walletConnected, setWalletConnected] = useState(false);
+  
   const [numOfWhitelisted,setNumOfWhitelisted] = useState(0);
+//check the current metamask address has joined the whitelist or not
   const [joinedWhitelist, setJoinedWhitelist] = useState(false);
+    //waiting for a transaction to get mined
   const [loading,setLoading] = useState(false);
+  //Create a reference to the Web3Modal(used for connecting to Metamask)
   const web3ModalRef = useRef();
+
+
+/*
+Returns a Provider or Signer object representing the Ethereum RPC with or without the signing the capabilities of metamask attached
+
+Provider is need to interact with the blockchain - reading transaction, reading balances, reading state, etc
+
+Signer is a special type of Provider used in case a 'write' transacting needs to be made to the blockchain, which involves the connected account
+needing to make a digital signature to authorize the transaction being sent. => Metamask exposes a Signer API to allow your website to request a 
+signature from the user using Signer function 
+
+needSigner - True if you need the signer, default false otherwise
+*/
 
   const getProviderOrSigner = async(needSigner = false) => {
     try {
+      //connect to Metamask
+      //Since we store 'web3Modal' as a reference, we need to access the 'current' value to get access to the underlying object
       const provider = await web3ModalRef.current.connect();
       const web3Provider = new providers.Web3Provider(provider);
 
-      const {chainId} = await web3Provider.getNetwork();
-      if (chainId !== 4) {
-        window.alert("Change the network to Rinkeby");
-        throw new Error("Change network to Rinkeby");
-      }
+
+      //if user is not connected to the Rinkeby network, let them know and throw an error
+      const { chainId } = await web3Provider.getNetwork();
+    if (chainId !== 4) {
+      window.alert("Change the network to Rinkeby");
+      throw new Error("Change network to Rinkeby");
+    }
   
       if (needSigner) {
         const signer = web3Provider.getSigner();
@@ -39,17 +61,23 @@ export default function Home() {
 
   const addAddressToWhitelist = async () => {
     try {
+      //need a Signer here since this is a 'write' transaction
       const signer = await getProviderOrSigner(true);
+
+      //create a new instance of the Contract with Signer, which allows update methods
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
         abi,
         signer
       );
 
+      //call the function-addAddressToWhitelist() from the contract
       const tx = await whitelistContract.addAddressToWhitelist();
       setLoading(true);
+      //wait for the transaction to get mined
       await tx.wait();
       setLoading(false);
+      //get the updated number of addresses in the whitelist
       await getNumberOfWhitelisted();
       setJoinedWhitelist(true);
     } catch (error) {
@@ -59,6 +87,8 @@ export default function Home() {
 
   const checkIfAddressIsWhitelisted = async () => {
     try {
+      //need the Signer later to get the user's address
+      //even though it is a read transaction, since Signers are just special kinds of Providers, it can use in it's place
       const signer = getProviderOrSigner(true)
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
@@ -66,6 +96,7 @@ export default function Home() {
         signer
       );
 
+      //get the address associated to the signer which is connected to Metamask
       const address = await signer.getAddress()
       const _joinedWhitelist = await whitelistContract.whiteListedAddresses(
         address
@@ -77,9 +108,12 @@ export default function Home() {
     }
   }
 
+
+
   const getNumberOfWhitelisted = async () => {
     try {
-      
+      //Get the provider from web3Modal, which in our case is Metamask
+      //No need for the Signer here, it only reading state from the blockchain
       const provider = await getProviderOrSigner();
       const whitelistContract = new Contract(
         WHITELIST_CONTRACT_ADDRESS,
@@ -121,9 +155,14 @@ export default function Home() {
     }
   }
 
+  //connectWallet: Connects the Metamask wallet
+
   const connectWallet = async () => {
     try {
+      //get the provider from web3Modal, which in our case is MetaMask
+      //when used for the first time, it prompts the user to connect their wallet
       await getProviderOrSigner();
+
       setWalletConnected(true)
       checkIfAddressIsWhitelisted();
       getNumberOfWhitelisted();
@@ -133,7 +172,10 @@ export default function Home() {
   }
 
   useEffect(() => {
+    //if wallet is not connected, create a new instance of Web3Modal and connect the Metamask wallet
     if(!walletConnected){
+      //Assign the Web3Modal class to the reference object by setting it's current' value
+      //The current value is persisted as long as this page is open
       web3ModalRef.current = new Web3Modal({
         network:"rinkeby",
         providerOptions:{},
