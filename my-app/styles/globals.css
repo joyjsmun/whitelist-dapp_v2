@@ -6,6 +6,20 @@
 @tailwind utilities;
 
 
+@layer base{
+  div {
+    @apply leading-loose ;
+  }
+  @font-face {
+    font-family: font-nato;
+    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@100;300;400;700&display=swap');
+  }
+  button {
+    @apply bg-blue-600 font-ProtoMono-Light font-bold text-xl text-white p-2 rounded-lg;
+  }
+}
+
+
   @font-face {
     font-family: 'ProtoMono-Light';
     src: url('/static/proto-mono-light/webfonts/proto-mono-light.ttf') format('truetype'),

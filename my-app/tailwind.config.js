@@ -6,6 +6,10 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundImage:{
+        'my_bg_image' : "url('../public/data-science.png')",
+      }
+      ,
       fontFamily: {
         // 'sans': ['Proxima Nova', ...defaultTheme.fontFamily.sans],
         'bebas': ['Bebas Neue', 'cursive'],
@@ -15,19 +19,6 @@ module.exports = {
         'ProtoMono-SemiBold':['ProtoMono-SemiBold', 'Helvetica', 'Arial', 'Sans-Serif'],
         
       },
-      borderRadius:{
-        'twistBorder':'255px 15px 225px 15px/15px 225px 15px 255px;'
-      },
-      keyframes: {
-        wiggle: {
-          '0%': { transform: 'translateY(-400px)' },
-          '100%': { transform: 'translateY(900px)' },
-        },
-        animation: {
-          wiggle: 'wiggle 1s cubic-bezier(0.21, 0.14, 0.52, 0.59) infinite',
-        }
-  
-      }
     },
   },
   plugins: [],
