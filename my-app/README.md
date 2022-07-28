@@ -3,4 +3,5 @@
 https://whitelist-dapp-pied-two.vercel.app/
 
 
-- [ ] connect rinkedby network msg 
+- [x] connect rinkedby network msg 
+- [ ] Let the user know that already in the whitelist or not

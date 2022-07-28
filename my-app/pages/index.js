@@ -103,8 +103,8 @@ needSigner - True if you need the signer, default false otherwise
       )
       setJoinedWhitelist(_joinedWhitelist);
 
-    } catch (error) {
-      console.log(error)
+    } catch (err) {
+      console.error(err)
     }
   }
 
@@ -124,8 +124,8 @@ needSigner - True if you need the signer, default false otherwise
       const _numOfWhitelisted = await whitelistContract.numAddressesWhitelisted();
       setNumOfWhitelisted(_numOfWhitelisted);
 
-    } catch (error) {
-      
+    } catch (err) {
+      console.error(err)
     }
   }
 
