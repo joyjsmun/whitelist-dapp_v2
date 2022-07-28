@@ -144,7 +144,7 @@ needSigner - True if you need the signer, default false otherwise
       }else{
         return (
           <button onClick={addAddressToWhitelist}>
-            Join the Whitelist
+            Join the Whitelist !!
           </button>
         )
       }
