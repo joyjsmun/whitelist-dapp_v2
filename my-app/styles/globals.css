@@ -1,48 +1,26 @@
-
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@100;300;400;700&display=swap');
-
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-
-@layer base{
-  div {
-    @apply leading-loose ;
-  }
-  @font-face {
-    font-family: font-nato;
-    src: url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Noto+Sans+JP:wght@100;300;400;700&display=swap');
-  }
-  button {
-    @apply bg-blue-600 font-ProtoMono-Light font-bold text-xl text-white p-2 rounded-lg;
-  }
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
 }
 
+a {
+  color: inherit;
+  text-decoration: none;
+}
 
-  @font-face {
-    font-family: 'ProtoMono-Light';
-    src: url('/static/proto-mono-light/webfonts/proto-mono-light.ttf') format('truetype'),
-         url('/static/proto-mono-light/webfonts/proto-mono-light.svg#youworkforthem') format('svg');
-    font-weight: 200;
-    font-style: normal;
-    src:url('/static/proto-mono-light/webfonts/proto-mono-light.ttf');
-    src:
-      url('/static/proto-mono-light/webfonts/proto-mono-light.ttf') format("truetype");
-  }
-  
-  @font-face {
-    font-family: 'ProtoMono-LightShadow';
-    src: url('/static/proto-mono-light-shadow/webfonts/proto-mono-light-shadow.ttf') format('truetype'),
-         url('/static/proto-mono-light-shadow/webfonts/proto-mono-light-shadow.svg#youworkforthem') format('svg');
-    font-weight: 200;
-    font-style: normal;
-  }
+* {
+  box-sizing: border-box;
+}
 
-  @font-face {
-    font-family: 'ProtoMono-SemiBold';
-    src: url('/static/proto-mono-semi-bold/webfonts/proto-mono-semi-bold.ttf') format('truetype'),
-         url('/static/proto-mono-semi-bold/webfonts/proto-mono-semi-bold.svg#youworkforthem') format('svg');
-    font-weight:600 ;
-    font-style: normal;
+@media (prefers-color-scheme: dark) {
+  html {
+    color-scheme: dark;
   }
+  body {
+    color: white;
+    background: black;
+  }
+}
