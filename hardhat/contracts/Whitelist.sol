@@ -3,14 +3,14 @@ pragma solidity ^0.8.0;
 
 contract Whitelist {
     //max number of whitelisted addresses allowed
-    uint public maxWhitelistedAddresses;
+    uint8 public maxWhitelistedAddresses;
 
     //Create a mapping of whitelistedAddresses
     //it is false by default
     mapping(address => bool) public whitelistedAddresses;
     
     //it would be used to keep track of how many addresses have been whitelisted
-    uint public numAddressesWhitelisted;
+    uint8 public numAddressesWhitelisted;
 
     //setting the Max number of whitelisted addresses
     constructor(uint8 _maxWhitelistedAddresses) {
